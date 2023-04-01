@@ -1,4 +1,4 @@
-const Person = require("./Person");
+const { Female, Male } = require("./Person");
 
 class FamilyTree {
     constructor() {
@@ -10,7 +10,7 @@ class FamilyTree {
         if (royalPerson == null) {
             return -1
         }
-        const commonPerson = new Person(commoner, gender);
+        const commonPerson = (gender === "Male") ? new Male(commoner) : new Female(commoner);
         this.map[commoner] = commonPerson;
         royalPerson.makePartner(commonPerson);
         return 0
@@ -18,14 +18,19 @@ class FamilyTree {
 
     addChild(motherName, childName, gender) {
         const mother = this.map[motherName];
-        if (mother == null) {
+        if (mother === null) {
             return -1
         }
-        const newChild = new Person(childName, gender);
+        const newChild = (gender === "Male") ? new Male(childName) : new Female(childName);
         newChild.mother = mother
         newChild.father = mother.partner
         this.map[childName] = newChild;
-        mother.addChild(newChild);
+        try {
+            mother.addChild(newChild);
+        } catch (e) {
+            console.error(e);
+            return -1
+        }
         return 0
     }
 
@@ -37,7 +42,7 @@ class FamilyTree {
         const res = []
 
         motherSiblings.forEach( (sibling) => {
-            if (sibling !== mother && sibling.gender === "Female") {
+            if (sibling !== mother && sibling instanceof Female) {
                 res.push(sibling.name);
             }
         })

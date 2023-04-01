@@ -1,7 +1,6 @@
 class Person {
-    constructor(name, gender) {
+    constructor(name) {
         this.name = name;
-        this.gender = gender;
         this.mother = null;
         this.father = null;
         this.partner = null;
@@ -14,10 +13,30 @@ class Person {
         this.children = []
         other.children = this.children
     }
+}
+
+class Male extends Person {
+    constructor(name) {
+        super(name);
+    }
+
+    addChild(...args) {
+        throw new Error('Can not ADD_CHILD through Male')
+    }
+}
+
+class Female extends Person {
+    constructor(name) {
+        super(name);
+    }
 
     addChild(child) {
         this.children.push(child)
     }
 }
 
-module.exports = Person
+module.exports = {
+    Person: Person,
+    Male: Male,
+    Female: Female
+}

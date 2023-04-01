@@ -1,8 +1,7 @@
-import initaliseFamilyTree from "../models/InitialiseFamilyTree"
+const initaliseFamilyTree = require("../models/InitialiseFamilyTree");
+const familyTree = initaliseFamilyTree();
 
 const executeCommand = (command) => {
-    const familyTree = initaliseFamilyTree();
-
     args = command.split(" ");
 
     if (args[0] === "ADD_CHILD") {
@@ -16,7 +15,7 @@ const executeCommand = (command) => {
 
     if (args[0] === "GET_RELATIONSHIP") {
         if (args[2] === "Maternal-Aunt") {
-            familyTree.getMaternalAunt(args[1]);
+            console.log(familyTree.getMaternalAunt(args[1]));
         }
     }
 }

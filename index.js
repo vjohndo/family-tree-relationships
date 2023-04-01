@@ -1,5 +1,5 @@
 const fs = require('fs');
-const execute = require("./controller/ui")
+const execute = require("./controller/executeCommand")
 
 function executeCommands(input) {
     const commands = input.split('\n');
@@ -35,6 +35,6 @@ if (require.main === module) {
 }
 
 module.exports = {
-    readCommands: executeCommands,
+    executeCommands: executeCommands,
     main: main
 };

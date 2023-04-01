@@ -1,19 +1,19 @@
 const FamilyTree = require("./FamilyTree");
-const Person = require("./Person");
+const { Male, Female } = require("./Person");
 
 const initaliseFamilyTree = () => {
     const family = new FamilyTree();
-    const arthur = new Person("King Arthur", "male");
-    const margret = new Person("Queen Margret", "female");
-    family.map["King Arthur"] = arthur
-    family.map["Queen Margret"] = margret
+    const arthur = new Male("Arthur", "male");
+    const margret = new Female("Margret", "female");
+    family.map["Arthur"] = arthur
+    family.map["Margret"] = margret
     arthur.makePartner(margret);
 
-    family.addChild("Queen Margret", "Bill", "Male");
-    family.addChild("Queen Margret", "Charlie", "Male");
-    family.addChild("Queen Margret", "Percy", "Male");
-    family.addChild("Queen Margret", "Ronald", "Male");
-    family.addChild("Queen Margret", "Ginerva", "Female");
+    family.addChild("Margret", "Bill", "Male");
+    family.addChild("Margret", "Charlie", "Male");
+    family.addChild("Margret", "Percy", "Male");
+    family.addChild("Margret", "Ronald", "Male");
+    family.addChild("Margret", "Ginerva", "Female");
     family.addPartner("Bill", "Flora", "Female");
     family.addPartner("Percy", "Audrey", "Female");
     family.addPartner("Ronald", "Helen", "Female");
@@ -40,6 +40,9 @@ const initaliseFamilyTree = () => {
     family.addChild("Darcy", "William", "Male");
     family.addChild("Alice", "Ron", "Male");
     family.addChild("Alice", "Ginny", "Female");
+    
+    console.log(arthur);
+    family.addChild("Arthur", "Ginny", "Female");
 
     return family;
 }

@@ -3,7 +3,7 @@ const expect = chai.expect;
 const sinon = require('sinon');
 const app = require('../index');
 
-describe('Command Reader', () => {
+describe('Family Tree Command Executor', () => {
     // Should consider whether I want to stub or spy
     beforeEach(() => {
         sinon.stub(console, 'log');
@@ -13,20 +13,27 @@ describe('Command Reader', () => {
         console.log.restore();
     });
 
-    it('should correctly read the command', () => {
-        const input = 'GET_RELATIONSHIP Lily Sister-In-Law';
-        const expectedOutput = 'GET_RELATIONSHIP';
-        app.readCommands(input);
+    it('should correctly show child addition failure if ADD_CHILD on Male', () => {
+        const input = 'ADD_CHILD Arthur Merlin Male'
+        const expectedOutput = 'CHILD_ADDITION_FAILED'
+        app.executeCommands(input);
+        expect(console.log.calledWith(expectedOutput)).to.be.true;
+    })
+
+    it('should correctly output the GET_RELATIONSHIP result for  Maternal-Aunt', () => {
+        const input = 'GET_RELATIONSHIP Remus Maternal-Aunt';
+        const expectedOutput = 'Dominique';
+        app.executeCommands(input);
         expect(console.log.calledWith(expectedOutput)).to.be.true;
     });
 
-    it('should correctly read multiple commands', () => {
-        const input = 'GET_RELATIONSHIP Lily Sister-In-Law\nADD_CHILD Lily Sister-In-Law';
+    it('should correctly output the GET_RELATIONSHIP result for Maternal-Aunt after ADD_CHILD', () => {
+        const input = 'ADD_CHILD Flora Minerva Female\nGET_RELATIONSHIP Remus Maternal-Aunt';
         const expectedOutput = [
-            'GET_RELATIONSHIP',
-            'ADD_CHILD'
+            'CHILD_ADDED',
+            'Dominique Minerva'
         ];
-        app.readCommands(input);
+        app.executeCommands(input);
         expectedOutput.forEach((output) => {
             expect(console.log.calledWith(output)).to.be.true;
         });
