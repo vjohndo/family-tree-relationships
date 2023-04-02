@@ -18,8 +18,8 @@ class FamilyTree {
 
     addChild(motherName, childName, gender) {
         const mother = this.map[motherName];
-        if (mother === null) {
-            return -1
+        if (mother === undefined) {
+            return "PERSON_NOT_FOUND"
         }
         const newChild = (gender === "Male") ? new Male(childName) : new Female(childName);
         newChild.mother = mother
@@ -28,10 +28,9 @@ class FamilyTree {
         try {
             mother.addChild(newChild);
         } catch (e) {
-            console.error(e);
-            return -1
+            return "CHILD_ADDITION_FAILED"
         }
-        return 0
+        return "CHILD_ADDED"
     }
 
     getMaternalAunt(personName) {
@@ -47,6 +46,21 @@ class FamilyTree {
             }
         })
         
+        return res.join(" ");
+    }
+
+    getSiblings(personName) {
+        const person = this.map[personName];
+        const mother = person.mother;
+        const motherChildren = mother.children;
+
+        const res = []
+
+        motherChildren.forEach( (sibling) => {
+            if (sibling !== person) {
+                res.push(sibling.name);
+            }
+        })
         return res.join(" ");
     }
 }

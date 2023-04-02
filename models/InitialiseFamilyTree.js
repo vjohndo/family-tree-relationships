@@ -41,12 +41,7 @@ const initaliseFamilyTree = () => {
     family.addChild("Alice", "Ron", "Male");
     family.addChild("Alice", "Ginny", "Female");
     
-    console.log(arthur);
-    family.addChild("Arthur", "Ginny", "Female");
-
     return family;
 }
-
-initaliseFamilyTree();
 
 module.exports = initaliseFamilyTree;

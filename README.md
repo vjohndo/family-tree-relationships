@@ -10,3 +10,4 @@ Model Assumptions:
 
 To Dos:
 - Refactor error handling
+- Case sensitivity

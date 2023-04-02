@@ -20,9 +20,9 @@ class Male extends Person {
         super(name);
     }
 
-    addChild(...args) {
-        throw new Error('Can not ADD_CHILD through Male')
-    }
+    // addChild(...args) {
+    //     throw new Error('Can not ADD_CHILD through Male')
+    // }
 }
 
 class Female extends Person {
