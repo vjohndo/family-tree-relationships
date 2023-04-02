@@ -1,10 +1,10 @@
 class Person {
     constructor(name) {
         this.name = name;
-        this.mother = null;
-        this.father = null;
-        this.partner = null;
-        this.children = null;
+        this.mother;
+        this.father;
+        this.partner;
+        this.children;
     }
 
     makePartner(other) {
@@ -19,10 +19,6 @@ class Male extends Person {
     constructor(name) {
         super(name);
     }
-
-    // addChild(...args) {
-    //     throw new Error('Can not ADD_CHILD through Male')
-    // }
 }
 
 class Female extends Person {

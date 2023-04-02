@@ -1,8 +1,18 @@
 const addChild = (args, familyTree) => {
-    // Input error handling for add child goes here.
+    if (args.length !== 4) {
+        console.log("INCORRECT_NUM_ARGS_FOR_ADD_CHILD");
+        return
+    }
 
-    result = familyTree.addChild(args[1], args[2], args[3])
-    console.log(result);
+    const [, mother, childName, childGender] = args
+
+    if (!(mother in familyTree.map)) {
+        console.log("PERSON_NOT_FOUND");
+        return;
+    }
+
+    result = familyTree.addChild(mother, childName, childGender)
+    console.log(result[0]);
 }
 
 module.exports = addChild;

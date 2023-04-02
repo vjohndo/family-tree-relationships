@@ -3,6 +3,7 @@ const { Male, Female } = require("./Person");
 
 const initaliseFamilyTree = () => {
     const family = new FamilyTree();
+    // Should turn these into methods?
     const arthur = new Male("Arthur", "male");
     const margret = new Female("Margret", "female");
     family.map["Arthur"] = arthur

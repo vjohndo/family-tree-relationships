@@ -5,22 +5,30 @@ class FamilyTree {
         this.map = {}
     }
 
+    getPerson(personName) {
+        return this.map[personName];
+    }
+
+    getSon(personName) {
+        const target = this.getPerson(personName);
+        const children = target.children;
+
+        // TBD
+    }
+
     addPartner(royal, commoner, gender) {
-        const royalPerson = this.map[royal];
-        if (royalPerson == null) {
-            return -1
+        const royalPerson = this.getPerson(royal);
+        if (royalPerson === undefined) {
+            return ["PERSON_NOT_FOUND"]
         }
         const commonPerson = (gender === "Male") ? new Male(commoner) : new Female(commoner);
         this.map[commoner] = commonPerson;
         royalPerson.makePartner(commonPerson);
-        return 0
+        return ["PARTNER_ADDED"]
     }
 
     addChild(motherName, childName, gender) {
-        const mother = this.map[motherName];
-        if (mother === undefined) {
-            return "PERSON_NOT_FOUND"
-        }
+        const mother = this.getPerson(motherName);
         const newChild = (gender === "Male") ? new Male(childName) : new Female(childName);
         newChild.mother = mother
         newChild.father = mother.partner
@@ -28,40 +36,64 @@ class FamilyTree {
         try {
             mother.addChild(newChild);
         } catch (e) {
-            return "CHILD_ADDITION_FAILED"
+            return ["CHILD_ADDITION_FAILED"]
         }
-        return "CHILD_ADDED"
+        return ["CHILD_ADDED"]
     }
 
     getMaternalAunt(personName) {
-        const person = this.map[personName];
-        const mother = person.mother;
-        const motherSiblings = mother.mother.children;
-
         const res = []
+        const person = this.getPerson(personName);
+        const mother = person.mother;
+        if (person === undefined) {
+            return res
+        }
+        const motherSiblings = mother.mother.children;
 
         motherSiblings.forEach( (sibling) => {
             if (sibling !== mother && sibling instanceof Female) {
-                res.push(sibling.name);
+                res.push(sibling);
             }
         })
         
-        return res.join(" ");
+        return res;
     }
 
     getSiblings(personName) {
-        const person = this.map[personName];
+        const res = [];
+        const person = this.getPerson(personName);
         const mother = person.mother;
+        if (mother === undefined) {
+            return res
+        }
         const motherChildren = mother.children;
 
-        const res = []
-
-        motherChildren.forEach( (sibling) => {
+        motherChildren.forEach((sibling) => {
             if (sibling !== person) {
-                res.push(sibling.name);
+                res.push(sibling);
             }
         })
-        return res.join(" ");
+
+        return res;
+    }
+
+    getSisterInLaw(personName) {
+        const res = [];
+        const person = this.getPerson(personName);
+        const mother = person.mother;
+        if (mother === undefined) {
+            return res
+        }
+        const motherChildren = mother.children;
+
+        motherChildren.forEach((sibling) => {
+            if (sibling !== person && sibling instanceof Male) {
+                if (sibling.partner !== null);
+                res.push(sibling.partner);
+            }
+        })
+
+        return res;
     }
 }
 

@@ -1,23 +1,46 @@
+const Person = require("../../models/Person");
+
 const getRelationship = (args, familyTree) => {
-    // Input error handling for getRelationship goes here
     if (args.length !== 3) {
-        console.log("INCORRECT_NUM_ARGS");
-        return
+        console.log("INCORRECT_NUM_ARGS_FOR_GET_RELATIONSHIP");
+        return;
     }
 
-    const targetPerson = args[1];
-    const relationship = args[2];
-    
-    switch(relationship) {
-        case "Maternal-Aunt":
-            console.log(familyTree.getMaternalAunt(targetPerson));
-            break;
-        case "Siblings":
-            console.log(familyTree.getSiblings(targetPerson));
-            break;
-        default:
-            console.log("RELATIONSHIP_NOT_SUPPORTED");
+    const [, targetPerson, relationship] = args;
+
+    if (!(targetPerson in familyTree.map)) {
+        console.log("PERSON_NOT_FOUND");
+        return;
     }
+
+    if (relationship === "Maternal-Aunt") {
+        const result = familyTree.getMaternalAunt(targetPerson);
+        logOutput(result);
+        return
+    } 
+    
+    if (relationship === "Siblings") {
+        const result = familyTree.getSiblings(targetPerson);
+        logOutput(result);
+        return
+    } 
+    
+    if (relationship === "Sister-In-Law") {
+        const result = familyTree.getSisterInLaw(targetPerson);
+        logOutput(result);
+        return
+    }
+    
+    console.log("RELATIONSHIP_NOT_SUPPORTED");
+}
+
+const logOutput = (resultArr) => {
+    if (resultArr.length === 0) {
+        console.log("NONE");
+    } else {
+        console.log(resultArr.map(person => person.name).join(" "));
+    }
+    return
 }
 
 module.exports = getRelationship;

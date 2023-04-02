@@ -10,4 +10,6 @@ Model Assumptions:
 
 To Dos:
 - Refactor error handling
-- Case sensitivity
+- Need to handle null cases for each relationship
+- Simplify error handling... If such a relationship does not exist return NONE.
+- No Further Partnerings can only get relationship and add to existing family
