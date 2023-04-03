@@ -1,4 +1,4 @@
-# Shippit backend challenge
+# backend challenge
 
 ## Assumptions
 ---
