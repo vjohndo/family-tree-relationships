@@ -1,38 +1,66 @@
 class Person {
-    constructor(name) {
-        this.name = name;
-        this.mother;
-        this.father;
-        this.partner;
-        this.children;
-    }
+  constructor(name) {
+    this.name = name;
+    this.mother;
+    this.father;
+    this.spouse;
+    this.children;
+  }
 
-    makePartner(other) {
-        this.partner = other
-        other.partner = this
-        this.children = []
-        other.children = this.children
-    }
+  getName() {
+    return this.name;
+  }
+
+  getMother() {
+    return this.mother;
+  }
+
+  setMother(mother) {
+    this.mother = mother;
+  }
+
+  getFather() {
+    return this.father;
+  }
+
+  setFather(father) {
+    this.father = father;
+  }
+
+  getSpouse() {
+    return this.spouse;
+  }
+
+  setSpouse(other) {
+    this.spouse = other;
+    other.spouse = this;
+    this.children = [];
+    other.children = this.children;
+  }
+
+  getChildren() {
+    return this.children;
+  }
 }
 
 class Male extends Person {
-    constructor(name) {
-        super(name);
-    }
+  constructor(name) {
+    super(name);
+  }
 }
 
 class Female extends Person {
-    constructor(name) {
-        super(name);
-    }
+  constructor(name) {
+    super(name);
+  }
 
-    addChild(child) {
-        this.children.push(child)
-    }
+  addChild(child) {
+    this.children.push(child);
+  }
 }
 
 module.exports = {
-    Person: Person,
-    Male: Male,
-    Female: Female
-}
+  Person: Person,
+  Male: Male,
+  Female: Female,
+};
